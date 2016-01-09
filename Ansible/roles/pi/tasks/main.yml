@@ -1,0 +1,12 @@
+---
+- name: 'Update APT package cache'
+  action: apt update_cache=yes
+
+- name: 'Upgrade APT to the lastest packages'
+  action: apt upgrade=yes
+
+- name: 'Reboot'
+  command: shutdown -r now
+  ignore_errors: true
+  sudo: true
+
