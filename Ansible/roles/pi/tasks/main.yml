@@ -1,4 +1,7 @@
 ---
+- name: 'Install python-apt'
+  apt: name=python-apt state=present
+
 - name: 'Update APT package cache'
   action: apt update_cache=yes
 
