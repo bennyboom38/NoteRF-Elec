@@ -1,0 +1,50 @@
+---
+
+- hosts: "{{ hosts }}"
+  #gather_facts: no
+  sudo: yes
+  user: pi
+ 
+  tasks:
+  
+  - name : Install Nano Mosquito curl apt-utils git bison sudo 
+    apt: name={{ item }} state=present
+    with_items:
+        - nano
+        - mosquitto
+        - curl
+        - apt-utils
+        - keyboard-configuration
+        - git
+        - bison
+        - libnss-mdns
+        - sudo
+  
+  - name : Prepare Node-Red
+    shell: curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+  
+  - name : Install build-essential python-dev python-rpi.gpio nodejs
+    apt: name={{ item }} state=present
+    with_items:
+        - build-essential
+        - python-dev
+        - python-rpi.gpio
+        - nodejs
+
+  - name : Install Node-Red
+    npm: name=node-red global=yes
+
+  - name : Clone git Go 1.4
+    git: repo=https://go.googlesource.com/go
+         dest=/home/pi/go
+         version=go1.4.2
+
+  - name : Change user right on Go directory
+    file: path=/home/pi/go owner=pi group=pi
+
+  - name : Compile Go
+    shell: ./all.bash >> /tmp/compiling_go.log 
+    args:
+      chdir: /home/pi/go/src
+      creates: compiling_go.log 
+    ignore_errors: yes
