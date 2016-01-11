@@ -4,7 +4,7 @@
 # MAKE SURE TO DO THIS BIT FIRST
 # ansible-playbook -c paramiko -i hosts setup.yml --ask-pass --sudo
 # change hosts: line to reflect which host acts on
-- hosts: all
+- hosts: hosts
   sudo: yes
   user: pi
 
