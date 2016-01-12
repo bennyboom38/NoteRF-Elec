@@ -21,7 +21,7 @@
         - sudo
   
   - name : Prepare Node-Red
-    shell: curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+    shell: curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -
   
   - name : Install build-essential python-dev python-rpi.gpio nodejs
     apt: name={{ item }} state=present
